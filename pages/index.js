@@ -1,209 +1,113 @@
-import Head from 'next/head'
+import Head from 'next/head';
+import React from 'react';
+import ParsedJsonViewer from '../components/json_viewer';
 
-export default function Home() {
-  return (
-    <div className="container">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
-  )
+function GetJsonInput(parseJson) {
+	return (
+		<div className="d-flex flex-column input-group w-50 my-4" style={{ height: '100vh' }}>
+			<div className="d-flex flex-row" style={{ height: '50vh' }}>
+				<div className="input-group-prepend">
+					<span className="input-group-text">
+						Input <br /> JSON
+					</span>
+				</div>
+				<textarea id="json" className="form-control" aria-label="Input JSON" />
+			</div>
+			<div>
+				<button
+					id="parse-json"
+					type="button"
+					onClick={function() {
+						parseJson(document.getElementById('json').value);
+					}}
+					className="btn btn-dark my-4"
+				>
+					Parse
+				</button>
+			</div>
+		</div>
+	);
 }
+
+function ShowJson(json) {
+	return (
+		<div>
+			<ParsedJsonViewer json={json} />
+		</div>
+	);
+}
+
+function MainComponent(inp) {
+	if (inp.props.getInput) {
+		return GetJsonInput(inp.parseCallback);
+	}
+	return ShowJson(inp.props.json);
+}
+
+class JsonViewer extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			getInput: true,
+			json: null
+		};
+		this.parseJson = this.parseJson.bind(this);
+	}
+
+	parseJson(jsonInput) {
+		console.log('parsing...', jsonInput);
+		this.setState({
+			getInput: false,
+			json: JSON.parse(jsonInput)
+		});
+	}
+
+	componentDidMount() {
+		$(function() {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+		$(function() {
+			$('[data-toggle="popover"]').popover();
+		});
+	}
+
+	render() {
+		return (
+			<div className="Main" style={{ height: '500px' }}>
+				<Head>
+					<title>JSON Viewer</title>
+
+					<link
+						rel="stylesheet"
+						href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+						integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+						crossOrigin="anonymous"
+					/>
+				</Head>
+				<nav className="navbar navbar-dark bg-dark ">
+					<div className="navbar-brand">JSON Viewer</div>
+				</nav>
+				<div className="d-flex justify-content-center h-100" style={{ height: '100vh' }}>
+					<MainComponent props={this.state} parseCallback={this.parseJson} />
+				</div>
+				<script
+					src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+					integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+					crossorigin="anonymous"
+				/>
+				<script
+					src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+					integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+					crossorigin="anonymous"
+				/>
+				<script
+					src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+					integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+					crossorigin="anonymous"
+				/>
+			</div>
+		);
+	}
+}
+
+export default JsonViewer;
