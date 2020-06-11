@@ -1,3 +1,5 @@
+const isProd = (process.env.NODE_ENV || 'production') === 'production';
+
 module.exports = {
 	webpack: (config, options) => {
 		config.module.rules.push({
@@ -11,5 +13,6 @@ module.exports = {
 		});
 
 		return config;
-	}
+	},
+    assetPrefix: isProd ? '/json-viewer' : ''
 };

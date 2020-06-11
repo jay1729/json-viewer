@@ -69,6 +69,7 @@ class JsonViewer extends React.Component {
 		$(function() {
 			$('[data-toggle="popover"]').popover();
 		});
+        console.log(process.env.NODE_ENV);
 	}
 
 	render() {
